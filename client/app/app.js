@@ -6,7 +6,9 @@ angular.module('stockTrackerApp', [
   'ngSanitize',
   'ngRoute',
   'btford.socket-io',
-  'ui.bootstrap'
+  'ui.bootstrap',
+  'highcharts-ng'
+
 ])
   .config(function ($routeProvider, $locationProvider) {
     $routeProvider
