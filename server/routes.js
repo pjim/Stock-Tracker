@@ -18,12 +18,14 @@ module.exports = function(app) {
    .get(errors[404]);
 
   // All other routes should redirect to the index.html
-  app.get('/stockCall',function(req,res){
-    request('http://dev.markitondemand.com/Api/v2/InteractiveChart/json?parameters={"Normalized":false,"NumberOfDays":300,"DataPeriod":"Day","Elements":[{"Symbol":"GOOG","Type":"price","Params":["c"]}]}',function(error,response,body){
+  app.post('/stockCall',function(req,res){
+    var stockObjects = req.body.stockOb;
+    console.log( 'this is stock objec from the request' + stockObjects);
+    request('http://dev.markitondemand.com/Api/v2/InteractiveChart/json?parameters=' + stockObjects,function(error,response,body){
       console.log('call to markit');
        console.log(body)  ;
+       res.json(body);
     })  ;
-    res.send('call to stock site');
   });
   app.route('/*')
     .get(function(req, res) {
