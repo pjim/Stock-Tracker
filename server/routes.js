@@ -6,6 +6,7 @@
 
 var errors = require('./components/errors');
 var path = require('path');
+var request = require('request')
 
 module.exports = function(app) {
 
@@ -18,6 +19,10 @@ module.exports = function(app) {
 
   // All other routes should redirect to the index.html
   app.get('/stockCall',function(req,res){
+    request('http://dev.markitondemand.com/Api/v2/InteractiveChart/json?parameters={"Normalized":false,"NumberOfDays":300,"DataPeriod":"Day","Elements":[{"Symbol":"GOOG","Type":"price","Params":["c"]}]}',function(error,response,body){
+      console.log('call to markit');
+       console.log(body)  ;
+    })  ;
     res.send('call to stock site');
   });
   app.route('/*')
