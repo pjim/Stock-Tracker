@@ -10,10 +10,14 @@ angular.module('stockTrackerApp')
 
 
         var stockCall = $http.post('/stockcall',{stockOb:stockCallParams}).success(function(data){
-          console.log(data);
           stockData = data;
-        })
-        console.log(stockData);
+           var dataOb = angular.fromJson(data);
+          console.log(dataOb.Positions)
+
+          $scope.chartConfig.series = dataOb.Positions;
+
+      });
+
         $scope.chartConfig = {
             options: {
                 chart: {
