@@ -4,9 +4,9 @@ angular.module('stockTrackerApp')
   .controller('MainCtrl', function ($scope, $http, socket) {
 
 
-
-        var stockCallParams = '{"Normalized":false,"NumberOfDays":300,"DataPeriod":"Day","Elements":[{"Symbol":"GOOG","Type":"price","Params":["c"]}]}';
-
+        var stockSymbol = '"GOOG"';
+        var stockCallParams = '{"Normalized":false,"NumberOfDays":300,"DataPeriod":"Day","Elements":[{"Symbol":' + stockSymbol + ',"Type":"price","Params":["c"]}]}';
+        console.log(stockCallParams)  ;
 
         $scope.chartConfig = {
             options: {
@@ -38,7 +38,9 @@ angular.module('stockTrackerApp')
 
 
        $scope.trackStock = function(){
-         console.log('track activated') 
+         event.preventDefault();
+         console.log('track activated')
+         stockSymbol = $scope.stocTrack;
           var stockCall = $http.post('/stockcall',{stockOb:stockCallParams}).success(function(data){
             var dataOb = angular.fromJson(data);
              var stockName = dataOb.Elements[0].Symbol;
