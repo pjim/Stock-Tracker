@@ -16,12 +16,7 @@ angular.module('stockTrackerApp')
                     type: 'line'
                 }
             },
-            series: [{
-                data:[7,1,5,3]
-            },
-          {
-            data:[5,3,5,3]
-          }],
+            series: [],
             title: {
                 text: 'Your Stocks\'s Recent Performance'
             },
@@ -32,9 +27,10 @@ angular.module('stockTrackerApp')
                 var stockCall = $http.post('/stockcall',{stockOb:stockCallParams}).success(function(data){
                   stockData = data;
                    var dataOb = angular.fromJson(data);
-                  console.log(dataOb.Positions)
-
-                  $scope.chartConfig.series.push({data:dataOb.Positions});
+                    var stockName = dataOb.Elements[0].Symbol;
+                    var stockPrices = dataOb.Elements[0].DataSeries.close.values;
+                    console.log(stockPrices);
+                  $scope.chartConfig.series.push({name:stockName,data:stockPrices});
 
               });
   });
