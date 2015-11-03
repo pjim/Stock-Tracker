@@ -21,7 +21,15 @@ angular.module('stockTrackerApp')
             loading: false
         };
 
-      $scope.buttons = []
+      $scope.buttons = [];
+
+      $scope.removeBut = function(element){
+        console.log('removing' + element);
+        var locNum = $scope.chartConfig.series.indexOf(element.id);
+        $scope.chartConfig.series.splice(locNum,1);
+        var butLoc = $scope.buttons.indexOf(element.id);
+        $scope.buttons.splice(butLoc,1);
+      }
        //make an array search that can find a stock to be deleted
 
 
@@ -46,7 +54,6 @@ angular.module('stockTrackerApp')
 
        $scope.trackStock = function(){
          event.preventDefault();
-         console.log('track activated')
          var stockSymbol = $scope.stoctrack;
          stockSymbol = stockSymbol.toUpperCase();
          var stockCallParams = '{"Normalized":false,"NumberOfDays":300,"DataPeriod":"Day","Elements":[{"Symbol":"' + stockSymbol + '","Type":"price","Params":["c"]}]}';
@@ -55,7 +62,6 @@ angular.module('stockTrackerApp')
             var dataOb = angular.fromJson(data);
              var stockName = dataOb.Elements[0].Symbol;
              var stockPrices = dataOb.Elements[0].DataSeries.close.values;
-             console.log(stockPrices);
             $scope.chartConfig.series.push({name:stockName,data:stockPrices});
             $scope.buttons.push(stockSymbol);
             numberStocksTracked += 1;

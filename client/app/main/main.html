@@ -13,7 +13,7 @@
 <div class="remove-buttons">
   <h3>Remove Stocks</h3>
   <div ng-repeat="but in buttons">
-    <button>{{but}}</button>
+    <button ng-click="removeBut(but)" id="{{but}}">{{but}}</button>
   </div>
 </div>
 <pre>{{stoctrack}}</pre>
