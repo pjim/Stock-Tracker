@@ -26,15 +26,16 @@ angular.module('stockTrackerApp')
 
       $scope.removeBut = function(element){
         console.log('removing' + element);
-        //var locNum = $scope.chartConfig.series.indexOf(element.id);
-        // charts = charts.filter(function(ele){
-        //       console.log(ele.name);
-        //       console.log(element)
-        //
-        //      if(ele.name){return false}
-        //      else{return true}
-        // });
-        charts = [];
+        console.log(charts)
+        $scope.chartConfig.series = $scope.chartConfig.series.filter(function(ele){
+              console.log(ele.name);
+              console.log(element)
+
+             if(ele.name === element){return false}
+             else{return true}
+        });
+        //charts = [];
+        console.log(charts);
         console.log($scope.chartConfig.series);
           var butLoc = $scope.buttons.indexOf(element);
         $scope.buttons.splice(butLoc,1);
