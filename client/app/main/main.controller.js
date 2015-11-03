@@ -21,7 +21,6 @@ angular.module('stockTrackerApp')
             loading: false
         };
 
-      var charts = $scope.chartConfig.series;
       $scope.buttons = [];
 
       $scope.removeBut = function(element){
@@ -32,8 +31,6 @@ angular.module('stockTrackerApp')
              if(ele.name === element){return false}
              else{return true}
         });
-        //charts = [];
-        console.log(charts);
         console.log($scope.chartConfig.series);
           var butLoc = $scope.buttons.indexOf(element);
         $scope.buttons.splice(butLoc,1);
@@ -63,7 +60,7 @@ angular.module('stockTrackerApp')
             var dataOb = angular.fromJson(data);
              var stockName = dataOb.Elements[0].Symbol;
              var stockPrices = dataOb.Elements[0].DataSeries.close.values;
-            charts.push({name:stockName,data:stockPrices});
+          $scope.chartConfig.series.push({name:stockName,data:stockPrices});
             console.log($scope.chartConfig.series);
             $scope.buttons.push(stockName);
 
