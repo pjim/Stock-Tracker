@@ -21,15 +21,27 @@ angular.module('stockTrackerApp')
             loading: false
         };
 
+      var charts = $scope.chartConfig.series;
       $scope.buttons = [];
 
       $scope.removeBut = function(element){
         console.log('removing' + element);
-        var locNum = $scope.chartConfig.series.indexOf(element.id);
-        $scope.chartConfig.series.splice(locNum,1);
-        var butLoc = $scope.buttons.indexOf(element.id);
+        //var locNum = $scope.chartConfig.series.indexOf(element.id);
+        // charts = charts.filter(function(ele){
+        //       console.log(ele.name);
+        //       console.log(element)
+        //
+        //      if(ele.name){return false}
+        //      else{return true}
+        // });
+        charts = [];
+        console.log($scope.chartConfig.series);
+          var butLoc = $scope.buttons.indexOf(element);
         $scope.buttons.splice(butLoc,1);
       }
+
+      //error it always removes the last entry in chart config array
+
        //make an array search that can find a stock to be deleted
 
 
@@ -62,9 +74,9 @@ angular.module('stockTrackerApp')
             var dataOb = angular.fromJson(data);
              var stockName = dataOb.Elements[0].Symbol;
              var stockPrices = dataOb.Elements[0].DataSeries.close.values;
-            $scope.chartConfig.series.push({name:stockName,data:stockPrices});
-            $scope.buttons.push(stockSymbol);
-            numberStocksTracked += 1;
+            charts.push({name:stockName,data:stockPrices});
+            console.log($scope.chartConfig.series);
+            $scope.buttons.push(stockName);
 
        });
 
