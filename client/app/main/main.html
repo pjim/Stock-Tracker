@@ -3,20 +3,36 @@
 <div class="container">
 <h1>Welcome to Stock Graph</h1>
 <p>You can add stocks by their symbol name and see their recent performance</p>
+<br>
 <highchart id="chart1" config="chartConfig"></highchart>
 
 <form action="" ng-submit="trackStock()">
- <label for="">Track New Stock</label>
- <input type="text" ng-model="stoctrack" val=''>
- <button >Track</button>
-
+   <label for="">Track New Stock</label>
+   <input type="text" ng-model="stoctrack" val=''>
+   <button class="btn">Track</button>
 </form>
-<div class="remove-buttons">
-  <h3>Remove Stocks</h3>
-  <div ng-repeat="but in buttons">
-    <button ng-click="removeBut(but)" id="{{but}}">{{but}}</button>
-  </div>
-  <button ng-click="resetTracking()">reset</button>
+
+<div class="row">
+    <div class ="col-md-6">
+        <div class="remove-buttons" ng-show="areGraphs">
+             <h3>Remove Stocks</h3>
+
+             <div ng-repeat="but in buttons">
+                 <button ng-click="removeBut(but)" class="btn space" id="{{but}}">{{but}}  x</button>
+
+             </div>
+             <br>
+             <button class="btn" ng-click="resetTracking()">Reset all</button>
+        </div>
+    </div>
+    <div class="col-md-6">
+         <h2>Some popular stock codes</h2>
+         <ul class="list-unstyled">
+           <li>Apple:AAPL</li>
+           <li>Google:GOOG</li>
+           <li>Microsoft:MSFT</li>
+         </ul>
+    </div>
 </div>
 </div>
 <footer class="footer">

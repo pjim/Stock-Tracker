@@ -4,8 +4,7 @@ angular.module('stockTrackerApp')
   .controller('MainCtrl', function ($scope, $http, socket) {
 
 
-        //var stockSymbol = '"GOOG"';
-      //  var stockCallParams = '{"Normalized":false,"NumberOfDays":300,"DataPeriod":"Day","Elements":[{"Symbol":' + stockSymbol + ',"Type":"price","Params":["c"]}]}';
+
 
         $scope.chartConfig = {
             options: {
@@ -24,26 +23,26 @@ angular.module('stockTrackerApp')
       $scope.buttons = [];
 
       $scope.removeBut = function(element){
-        console.log('removing' + element);
         $scope.chartConfig.series = $scope.chartConfig.series.filter(function(ele){
-
              if(ele.name === element){return false}
              else{return true}
         });
-        console.log($scope.chartConfig.series);
-          var butLoc = $scope.buttons.indexOf(element);
+        var butLoc = $scope.buttons.indexOf(element);
         $scope.buttons.splice(butLoc,1);
       }
 
-
-      //error you cannot reinsert a removed stock without a page refresh
+//name the x and y appropriately
 
      $scope.resetTracking = function(){
        $scope.buttons = [];
        $scope.chartConfig.series = [];
      }
 
-
+     $scope.areGraphs = function(){
+       if($scope.chartConfig.series.length === 0){
+         return false;
+       }else{return true;}
+     }
 
      var numberStocksTracked = 0;
 
@@ -64,7 +63,6 @@ angular.module('stockTrackerApp')
              var stockName = dataOb.Elements[0].Symbol;
              var stockPrices = dataOb.Elements[0].DataSeries.close.values;
              $scope.chartConfig.series.push({name:stockName,data:stockPrices});
-            console.log($scope.chartConfig.series);
             $scope.buttons.push(stockName);
 
        });
@@ -72,3 +70,7 @@ angular.module('stockTrackerApp')
       }
 
   });
+
+//  This is the type of formatting required for the api call, other parameters are
+//  also available on the Markit site
+//'{"Normalized":false,"NumberOfDays":300,"DataPeriod":"Day","Elements":[{"Symbol":' + stockSymbol + ',"Type":"price","Params":["c"]}]}';
