@@ -21,7 +21,7 @@ angular.module('stockTrackerApp')
             loading: false
         };
 
-
+      $scope.buttons = []
        //make an array search that can find a stock to be deleted
 
 
@@ -57,6 +57,7 @@ angular.module('stockTrackerApp')
              var stockPrices = dataOb.Elements[0].DataSeries.close.values;
              console.log(stockPrices);
             $scope.chartConfig.series.push({name:stockName,data:stockPrices});
+            $scope.buttons.push(stockSymbol);
             numberStocksTracked += 1;
 
        });
