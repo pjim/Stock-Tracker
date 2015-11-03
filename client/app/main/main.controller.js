@@ -25,7 +25,6 @@ angular.module('stockTrackerApp')
 
       $scope.removeBut = function(element){
         console.log('removing' + element);
-        console.log(charts)
         $scope.chartConfig.series = $scope.chartConfig.series.filter(function(ele){
 
              if(ele.name === element){return false}
@@ -60,7 +59,7 @@ angular.module('stockTrackerApp')
             var dataOb = angular.fromJson(data);
              var stockName = dataOb.Elements[0].Symbol;
              var stockPrices = dataOb.Elements[0].DataSeries.close.values;
-          $scope.chartConfig.series.push({name:stockName,data:stockPrices});
+             $scope.chartConfig.series.push({name:stockName,data:stockPrices});
             console.log($scope.chartConfig.series);
             $scope.buttons.push(stockName);
 
