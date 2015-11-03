@@ -16,7 +16,9 @@ angular.module('stockTrackerApp')
             title: {
                 text: 'Your Stocks\'s Recent Performance'
             },
-
+            yAxis:{
+              title:{text:'price'}
+            },
             loading: false
         };
 
