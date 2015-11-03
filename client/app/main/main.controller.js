@@ -56,7 +56,11 @@ angular.module('stockTrackerApp')
          var stockCallParams = '{"Normalized":false,"NumberOfDays":300,"DataPeriod":"Day","Elements":[{"Symbol":"' + stockSymbol + '","Type":"price","Params":["c"]}]}';
 
           var stockCall = $http.post('/stockcall',{stockOb:stockCallParams}).success(function(data){
-            var dataOb = angular.fromJson(data);
+           try {
+                var dataOb = angular.fromJson(data);
+            } catch (e) {
+              alert('Not a valid stock code')
+            }
              var stockName = dataOb.Elements[0].Symbol;
              var stockPrices = dataOb.Elements[0].DataSeries.close.values;
              $scope.chartConfig.series.push({name:stockName,data:stockPrices});
